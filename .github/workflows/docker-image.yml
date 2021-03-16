@@ -27,7 +27,7 @@ jobs:
             TRILINOS_VERSION=${{ secrets.TRILINOS_VERSION }}
             XYCE_VERSION=${{ secrets.XYCE_VERSION }}
           push: true
-          tags: snmishra/Xyce:latest
+          tags: snmishra/xyce:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
       -
