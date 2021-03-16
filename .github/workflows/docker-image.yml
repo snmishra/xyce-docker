@@ -24,8 +24,8 @@ jobs:
         with:
           context: .
           build-args: |
-            TRILINOS_VERSION=${{ TRILINOS_VERSION }}
-            XYCE_VERSION=${{ XYCE_VERSION }}
+            TRILINOS_VERSION=${{ secrets.TRILINOS_VERSION }}
+            XYCE_VERSION=${{ secrets.XYCE_VERSION }}
           push: true
           tags: snmishra/Xyce:latest
           cache-from: type=local,src=/tmp/.buildx-cache
