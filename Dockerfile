@@ -14,9 +14,9 @@ RUN git clone --branch=$XYCE_VERSION --depth=1 https://github.com/Xyce/Xyce_Regr
 
 FROM base as serial
 WORKDIR /Trilinos-build
-RUN SRCDIR=/Trilinos \
-  ARCHDIR=/XyceLibs/Serial \
-  FLAGS="-O3 -fPIC" \
+RUN SRCDIR=/Trilinos; \
+  ARCHDIR=/XyceLibs/Serial; \
+  FLAGS="-O3 -fPIC"; \
   cmake \
   -G "Unix Makefiles" \
     -DCMAKE_C_COMPILER=gcc \
