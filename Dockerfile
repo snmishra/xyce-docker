@@ -6,7 +6,7 @@ ENV TZ=America/Chicago DEBIAN_FRONTEND=noninteractive
 # The "folly" component currently fails if "fmt" is not explicitly installed first.
 RUN apt-get update && apt-get install -y cmake build-essential m4 python-dev-is-python3 \
   git gfortran bison flex libfl-dev libfftw3-dev libsuitesparse-dev libopenblas-dev \
-  liblapack-dev automake autoconf libtool
+  liblapack-dev automake autoconf libtool python3-numpy python3-scipy
 
 RUN git clone --branch $TRILINOS_VERSION --depth 1 https://github.com/trilinos/Trilinos/
 RUN git clone --branch $XYCE_VERSION --depth 1 https://github.com/Xyce/Xyce /Xyce
@@ -64,14 +64,13 @@ RUN ../Xyce/configure ARCHDIR=/XyceLibs/Serial \
   --prefix=/XyceInstall/Serial
 RUN make -j$(nproc) && make install
 
-# Ignore test failures for now
 RUN /Xyce_Regression/TestScripts/run_xyce_regression \
   --timelimit=60 \
   --output=`pwd`/Xyce_Test \
   --xyce_test="/Xyce_Regression" \
   --resultfile=`pwd`/serial_results \
   --taglist="+serial+nightly?noverbose-verbose?klu?fft" \
-  `pwd`/src/Xyce || true
+  `pwd`/src/Xyce
 
 FROM ubuntu:focal
 COPY --from=serial /XyceInstall /XyceLibs /
