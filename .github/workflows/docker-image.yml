@@ -1,4 +1,4 @@
-name: Seial Build CI
+name: Serial Build CI
 
 on:
   workflow_dispatch:
@@ -6,8 +6,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
+      - name: Variables
+        run: |
+          echo "TRILINOS_VERSION=trilinos-release-13-0-1" >> $GITHUB_ENV
+          echo "XYCE_VERSION=Release-7.3.0" >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set up Docker Buildx
@@ -30,8 +33,8 @@ jobs:
         with:
           context: .
           build-args: |
-            TRILINOS_VERSION=${{ secrets.TRILINOS_VERSION }}
-            XYCE_VERSION=${{ secrets.XYCE_VERSION }}
+            TRILINOS_VERSION=${{ env.TRILINOS_VERSION }}
+            XYCE_VERSION=${{ env.XYCE_VERSION }}
           push: true
           tags: snmishra/xyce:latest
           cache-from: type=local,src=/tmp/.buildx-cache
