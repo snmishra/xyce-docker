@@ -10,7 +10,7 @@ jobs:
       - name: Variables
         run: |
           echo "TRILINOS_VERSION=trilinos-release-13-0-1" >> $GITHUB_ENV
-          echo "XYCE_VERSION=Release-7.3.0" >> $GITHUB_ENV
+          echo "XYCE_VERSION=7.3.0" >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set up Docker Buildx
@@ -34,9 +34,9 @@ jobs:
           context: .
           build-args: |
             TRILINOS_VERSION=${{ env.TRILINOS_VERSION }}
-            XYCE_VERSION=${{ env.XYCE_VERSION }}
+            XYCE_VERSION=Release-${{ env.XYCE_VERSION }}
           push: true
-          tags: snmishra/xyce:latest
+          tags: snmishra/xyce:latest,snmishra/xyce:${{env.XYCE_VERSION}}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
       - name: Move cache
