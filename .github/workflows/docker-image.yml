@@ -9,10 +9,10 @@ jobs:
     strategy:
       matrix:
         include:
-          - xyce_version: '7.3.0'
-            trilinos_version: 'trilinos-release-13-0-1'
           - xyce_version: '7.4.0'
             trilinos_version: 'trilinos-release-13-0-1'
+          - xyce_version: '7.5.0'
+            trilinos_version: 'trilinos-release-13-2-0'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
