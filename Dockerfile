@@ -1,4 +1,4 @@
-FROM ubuntu:focal as base
+FROM ubuntu:latest as base
 ARG XYCE_VERSION
 ARG TRILINOS_VERSION
 
@@ -72,5 +72,5 @@ RUN /Xyce_Regression/TestScripts/run_xyce_regression \
   --taglist="+serial+nightly?noverbose-verbose?klu?fft" \
   `pwd`/src/Xyce
 
-FROM ubuntu:focal
+FROM ubuntu:latest
 COPY --from=serial /XyceInstall /XyceLibs /
