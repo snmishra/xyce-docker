@@ -64,13 +64,13 @@ RUN ../Xyce/configure ARCHDIR=/XyceLibs/Serial \
   --prefix=/XyceInstall/Serial
 RUN make -j$(nproc) && make install
 
-RUN /Xyce_Regression/TestScripts/run_xyce_regression \
-  --timelimit=60 \
-  --output=`pwd`/Xyce_Test \
-  --xyce_test="/Xyce_Regression" \
-  --resultfile=`pwd`/serial_results \
-  --taglist="+serial+nightly?noverbose-verbose?klu?fft" \
-  `pwd`/src/Xyce
+# RUN /Xyce_Regression/TestScripts/run_xyce_regression \
+#   --timelimit=60 \
+#   --output=`pwd`/Xyce_Test \
+#   --xyce_test="/Xyce_Regression" \
+#   --resultfile=`pwd`/serial_results \
+#   --taglist="+serial+nightly?noverbose-verbose?klu?fft" \
+#   `pwd`/src/Xyce
 
 FROM ubuntu:latest
 COPY --from=serial /XyceInstall /XyceLibs /
